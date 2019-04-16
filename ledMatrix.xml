@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdtprojectproperties>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.IncludePaths">
+<language name="C Source File">
+<includepath>Debug/${INHERITED_INCLUDE_PATH}</includepath>
+<includepath>C:/Users/lukelee36/workspace_v9/empty_CC3220SF_LAUNCHXL_freertos_ccs_syscfg</includepath>
+<includepath>C:/Users/lukelee36/workspace_v9/empty_CC3220SF_LAUNCHXL_freertos_ccs_syscfg/Debug</includepath>
+<includepath>C:/ti/simplelink_cc32xx_sdk_3_10_00_04/source</includepath>
+<includepath>C:/ti/simplelink_cc32xx_sdk_3_10_00_04/source/ti/posix/ccs</includepath>
+<includepath>C:/FreeRTOSv10.2.0/FreeRTOS/Source/include</includepath>
+<includepath>C:/FreeRTOSv10.2.0/FreeRTOS/Source/portable/CCS/ARM_CM3</includepath>
+<includepath>C:/Users/lukelee36/workspace_v9/freertos_builds_CC3220SF_LAUNCHXL_release_ccs</includepath>
+<includepath>C:/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include</includepath>
+
+</language>
+<language name="Assembly Source File">
+<includepath>Debug/${INHERITED_INCLUDE_PATH}</includepath>
+<includepath>C:/Users/lukelee36/workspace_v9/empty_CC3220SF_LAUNCHXL_freertos_ccs_syscfg</includepath>
+<includepath>C:/Users/lukelee36/workspace_v9/empty_CC3220SF_LAUNCHXL_freertos_ccs_syscfg/Debug</includepath>
+<includepath>C:/ti/simplelink_cc32xx_sdk_3_10_00_04/source</includepath>
+<includepath>C:/ti/simplelink_cc32xx_sdk_3_10_00_04/source/ti/posix/ccs</includepath>
+<includepath>C:/FreeRTOSv10.2.0/FreeRTOS/Source/include</includepath>
+<includepath>C:/FreeRTOSv10.2.0/FreeRTOS/Source/portable/CCS/ARM_CM3</includepath>
+<includepath>C:/Users/lukelee36/workspace_v9/freertos_builds_CC3220SF_LAUNCHXL_release_ccs</includepath>
+<includepath>C:/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include</includepath>
+
+</language>
+<language name="C++ Source File">
+<includepath>Debug/${INHERITED_INCLUDE_PATH}</includepath>
+<includepath>C:/Users/lukelee36/workspace_v9/empty_CC3220SF_LAUNCHXL_freertos_ccs_syscfg</includepath>
+<includepath>C:/Users/lukelee36/workspace_v9/empty_CC3220SF_LAUNCHXL_freertos_ccs_syscfg/Debug</includepath>
+<includepath>C:/ti/simplelink_cc32xx_sdk_3_10_00_04/source</includepath>
+<includepath>C:/ti/simplelink_cc32xx_sdk_3_10_00_04/source/ti/posix/ccs</includepath>
+<includepath>C:/FreeRTOSv10.2.0/FreeRTOS/Source/include</includepath>
+<includepath>C:/FreeRTOSv10.2.0/FreeRTOS/Source/portable/CCS/ARM_CM3</includepath>
+<includepath>C:/Users/lukelee36/workspace_v9/freertos_builds_CC3220SF_LAUNCHXL_release_ccs</includepath>
+<includepath>C:/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include</includepath>
+
+</language>
+<language name="Assembly Source File">
+<includepath>Debug/${INHERITED_INCLUDE_PATH}</includepath>
+<includepath>C:/Users/lukelee36/workspace_v9/empty_CC3220SF_LAUNCHXL_freertos_ccs_syscfg</includepath>
+<includepath>C:/Users/lukelee36/workspace_v9/empty_CC3220SF_LAUNCHXL_freertos_ccs_syscfg/Debug</includepath>
+<includepath>C:/ti/simplelink_cc32xx_sdk_3_10_00_04/source</includepath>
+<includepath>C:/ti/simplelink_cc32xx_sdk_3_10_00_04/source/ti/posix/ccs</includepath>
+<includepath>C:/FreeRTOSv10.2.0/FreeRTOS/Source/include</includepath>
+<includepath>C:/FreeRTOSv10.2.0/FreeRTOS/Source/portable/CCS/ARM_CM3</includepath>
+<includepath>C:/Users/lukelee36/workspace_v9/freertos_builds_CC3220SF_LAUNCHXL_release_ccs</includepath>
+<includepath>C:/ti/ccs901/ccs/tools/compiler/ti-cgt-arm_18.12.1.LTS/include</includepath>
+
+</language>
+<language name="Linker Command File">
+
+</language>
+<language name="Linker Command File">
+
+</language>
+<language name="Linker Command File">
+
+</language>
+</section>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.Macros">
+<language name="C Source File">
+<macro>
+<name>${INHERITED_SYMBOLS}</name><value/>
+</macro>
+
+</language>
+<language name="Assembly Source File">
+<macro>
+<name>${INHERITED_SYMBOLS}</name><value/>
+</macro>
+
+</language>
+<language name="C++ Source File">
+<macro>
+<name>${INHERITED_SYMBOLS}</name><value/>
+</macro>
+
+</language>
+<language name="Assembly Source File">
+<macro>
+<name>${INHERITED_SYMBOLS}</name><value/>
+</macro>
+
+</language>
+<language name="Linker Command File">
+
+</language>
+<language name="Linker Command File">
+
+</language>
+<language name="Linker Command File">
+
+</language>
+</section>
+</cdtprojectproperties>
