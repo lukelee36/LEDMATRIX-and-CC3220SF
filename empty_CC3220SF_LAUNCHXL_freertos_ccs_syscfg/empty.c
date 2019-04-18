@@ -60,7 +60,8 @@ void timerCallback(Timer_Handle myHandle);
 
 void loadMatrixData()
 {
-    unsigned int ptr[32] = {OFFLED,ONLED,OFFLED,ONLED,OFFLED,OFFLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,OFFLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,OFFLED,OFFLED};
+   unsigned int ptr[32] = {OFFLED,ONLED,OFFLED,ONLED,OFFLED,OFFLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,OFFLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,ONLED,OFFLED,OFFLED,OFFLED};
+   // unsigned int ptr[32] = ONLED;
     int i = 0;
     for(i; i < 32; i++)
     {
@@ -71,7 +72,7 @@ void loadMatrixData()
         GPIO_write(CLKMatrix, toc);
     }
 }
-static double counter;
+//static double counter;
 /*
  *  ======== mainThread ========
  */
@@ -85,18 +86,18 @@ void *mainThread(void *arg0)
     Timer_init();
 
     /* Configure the LED pin */
-    GPIO_setConfig(Board_GPIO_LED0, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
+   // GPIO_setConfig(Board_GPIO_LED0, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
     GPIO_setConfig(CLKMatrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(AMatrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(BMatrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(CMatrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
+    GPIO_setConfig(AMatrix, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
+    GPIO_setConfig(BMatrix, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
+    GPIO_setConfig(CMatrix, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
     GPIO_setConfig(LATMatrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
     GPIO_setConfig(OEMatrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
     GPIO_setConfig(CLKMatrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
     GPIO_setConfig(R1Matrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
 
     /* Turn off user LED */
-    GPIO_write(Board_GPIO_LED0, Board_GPIO_LED_OFF);
+   // GPIO_write(Board_GPIO_LED0, Board_GPIO_LED_OFF);
     GPIO_write(CLKMatrix, Board_GPIO_LED_OFF);
 
 
@@ -105,7 +106,7 @@ void *mainThread(void *arg0)
      * function every ONLED,000,000 microseconds, or ONLED second.
      */
     Timer_Params_init(&params);
-    params.period = 100;
+    params.period = 1000;
     params.periodUnits = Timer_PERIOD_US;
     params.timerMode = Timer_CONTINUOUS_CALLBACK;
     params.timerCallback = timerCallback;
@@ -136,7 +137,7 @@ void timerCallback(Timer_Handle myHandle)
     static uint8_t addr = 0;
     uint8_t a,b,c = 0;
 
-    GPIO_toggle(Board_GPIO_LED0);
+  //  GPIO_toggle(Board_GPIO_LED0);
 //    GPIO_toggle(CLKMatrix);
 
     // zde se momentalne bude menit kazdou sekundu adresa
@@ -149,8 +150,10 @@ void timerCallback(Timer_Handle myHandle)
         addr = 0;
     }
 
-//    GPIO_write(LATMatrix, GPIO_CFG_OUT_HIGH);
-//    GPIO_write(OEMatrix, GPIO_CFG_OUT_HIGH);
+    loadMatrixData();
+
+    GPIO_write(LATMatrix, GPIO_CFG_OUT_HIGH);
+    GPIO_write(OEMatrix, GPIO_CFG_OUT_HIGH);
     // select address from number to port A, B, C
     a = addr & 0x01;
     b = addr & 0x02;
@@ -182,9 +185,9 @@ void timerCallback(Timer_Handle myHandle)
     {
         GPIO_write(CMatrix, GPIO_CFG_OUT_LOW);
     }
-//    usleep(10);
-//    GPIO_write(LATMatrix, GPIO_CFG_OUT_LOW);
-//    GPIO_write(OEMatrix, GPIO_CFG_OUT_LOW);
+    //usleep(10);
+    GPIO_write(LATMatrix, GPIO_CFG_OUT_LOW);
+    GPIO_write(OEMatrix, GPIO_CFG_OUT_LOW);
 }
 
 
