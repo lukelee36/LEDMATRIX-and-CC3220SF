@@ -35,6 +35,8 @@
  */
 
 /* For usleep() */
+#include <lib/ledMatrixGraphic.h>
+#include <lib/ledMatrixDriver.h>
 #include <unistd.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -51,7 +53,6 @@
 /* Board Header file */
 #include "Board.h"
 
-#include "lib/ledMatrixDriver.h"
 
 void timerCallback(Timer_Handle myHandle);
 
@@ -67,29 +68,13 @@ void *mainThread(void *arg0)
     GPIO_init();
     Timer_init();
 
-    /* Configure the LED pin */
-   // GPIO_setConfig(Board_GPIO_LED0, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(CLKMatrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(AMatrix, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(BMatrix, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(CMatrix, GPIO_CFG_OUT_STD | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(LATMatrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(OEMatrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(CLKMatrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(R1Matrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
-    GPIO_setConfig(R2Matrix, GPIO_CFG_OUTPUT | GPIO_CFG_OUT_LOW);
+    lmd_init();
 
-    /* Turn off user LED */
-   // GPIO_write(Board_GPIO_LED0, Board_GPIO_LED_OFF);
-    GPIO_write(CLKMatrix, Board_GPIO_LED_OFF);
-
-
-
-    /* Setting up the timer in continuous callback mode that calls the callback
+   /* Setting up the timer in continuous callback mode that calls the callback
      * function every ONLED,000,000 microseconds, or ONLED second.
      */
     Timer_Params_init(&params);
-    params.period = 2500;
+    params.period = 1250;
     params.periodUnits = Timer_PERIOD_US;
     params.timerMode = Timer_CONTINUOUS_CALLBACK;
     params.timerCallback = timerCallback;
@@ -134,7 +119,7 @@ void timerCallback(Timer_Handle myHandle)
         addr = 0;
     }
 
-    loadMatrixData(addr);
+    lmg_loadMatrixData(addr);
 
 
     //part for change address
