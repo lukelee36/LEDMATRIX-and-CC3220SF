@@ -8,7 +8,11 @@
 #ifndef LIB_LEDMATRIXDRIVER_H_
 #define LIB_LEDMATRIXDRIVER_H_
 
+#include <ti/drivers/Timer.h>
+
 void lmd_init();
+void lmd_timer_init();
+void timerCallback(Timer_Handle myHandle);
 
 
 

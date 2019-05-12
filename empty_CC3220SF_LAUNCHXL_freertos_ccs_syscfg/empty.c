@@ -40,6 +40,7 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <stddef.h>
+#include <string.h>
 
 /* Driver Header files */
 #include <ti/drivers/GPIO.h>
@@ -61,104 +62,29 @@ void timerCallback(Timer_Handle myHandle);
  */
 void *mainThread(void *arg0)
 {
-    Timer_Handle timer0;
-    Timer_Params params;
-
+    int color[] = {1,1,1};
     /* Call driver init functions */
     GPIO_init();
     Timer_init();
 
+    /* LED matrix initioalization*/
     lmd_init();
+    lmd_timer_init();
 
-   /* Setting up the timer in continuous callback mode that calls the callback
-     * function every ONLED,000,000 microseconds, or ONLED second.
-     */
-    Timer_Params_init(&params);
-    params.period = 1250;
-    params.periodUnits = Timer_PERIOD_US;
-    params.timerMode = Timer_CONTINUOUS_CALLBACK;
-    params.timerCallback = timerCallback;
 
-    timer0 = Timer_open(Board_TIMER0, &params);
-
-    if (timer0 == NULL) {
-        /* Failed to initialized timer */
-        while (1) {}
-    }
-
-    if (Timer_start(timer0) == Timer_STATUS_ERROR) {
-        /* Failed to start timer */
-        while (1) {}
-    }
 //    lmd_demo_alphabeth();
-//    while(1)
-//    {
-//        loadMatrixData();
-//        counter++;
-//    }
+    while(1)
+    {
+       static int co2 = 1400;
+      //  lmg_show_text_scroll_row1("AHoj ahoj ahoj ahoj ahoj ahoj haoj", color);
+       // lmg_show_text_scroll_row2("Tak kdo ma uz odevyvdany projekt?", color);
+        lmg_demo_co2(co2, color);
+        co2 =co2 + 1;
+    }
 
     return (NULL);
 }
 
-void timerCallback(Timer_Handle myHandle)
-{
-    static uint8_t addr = 0;
-    uint8_t a,b,c = 0;
-    //int j = 0, i = 0;
 
-  //  GPIO_toggle(Board_GPIO_LED0);
-//    GPIO_toggle(CLKMatrix);
-
-    // zde se momentalne bude menit kazdou sekundu adresa
-    if(addr < 7)
-    {
-        addr = addr + 1;
-    }
-    else
-    {
-        addr = 0;
-    }
-
-    lmg_loadMatrixData(addr);
-
-
-    //part for change address
-    GPIO_write(LATMatrix, GPIO_CFG_OUT_HIGH);
-    GPIO_write(OEMatrix, GPIO_CFG_OUT_HIGH);
-    // select address from number to port A, B, C
-    a = addr & 0x01;
-    b = addr & 0x02;
-    c = addr & 0x04;
-
-    if (a)
-    {
-        GPIO_write(AMatrix, GPIO_CFG_OUT_HIGH);
-    }
-    else
-    {
-        GPIO_write(AMatrix, GPIO_CFG_OUT_LOW);
-    }
-
-    if (b)
-    {
-        GPIO_write(BMatrix, GPIO_CFG_OUT_HIGH);
-    }
-    else
-    {
-        GPIO_write(BMatrix, GPIO_CFG_OUT_LOW);
-    }
-
-    if (c)
-    {
-        GPIO_write(CMatrix, GPIO_CFG_OUT_HIGH);
-    }
-    else
-    {
-        GPIO_write(CMatrix, GPIO_CFG_OUT_LOW);
-    }
-    //usleep(10);
-    GPIO_write(LATMatrix, GPIO_CFG_OUT_LOW);
-    GPIO_write(OEMatrix, GPIO_CFG_OUT_LOW);
-}
 
 

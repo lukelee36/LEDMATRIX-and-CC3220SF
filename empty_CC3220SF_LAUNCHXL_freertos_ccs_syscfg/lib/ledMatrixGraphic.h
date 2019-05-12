@@ -30,7 +30,6 @@
 #define NUMROWPIXEL     32
 #define NUMROWS         8
 
-
 // A for testing
 static unsigned int Malphabet[8][185]=
 {
@@ -56,9 +55,13 @@ void lmg_demo_alphabeth(void);
 
 void lmg_demo_alphabeth_list(int list);
 
+void lmg_demo_co2(int co2, int color[]);
+
 void lmg_show_text(char text[], int color[]);
 
-void lmg_show_text_scroll(char text[], int rows, int color[]);
+void lmg_show_text_scroll_row1(char text[], int color[]);
+
+void lmg_show_text_scroll_row2(char text[], int color[]);
 
 void lmg_find_char(char character, int rows, int position, int color[]);
 

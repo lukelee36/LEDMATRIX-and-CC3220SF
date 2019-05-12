@@ -8,8 +8,11 @@
 #include "ledMatrixGraphic.h"
 #include <ti/drivers/GPIO.h>
 #include "Board.h"
+
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
 
 // for one color
 static unsigned int rows1[NUMROWS][NUMROWPIXEL] = { 0 };
@@ -19,6 +22,10 @@ static unsigned int rows2[NUMROWS][NUMROWPIXEL] = { 0 };
 static unsigned int rows1R[NUMROWS][NUMROWPIXEL] = { 0 };
 static unsigned int rows1G[NUMROWS][NUMROWPIXEL] = { 0 };
 static unsigned int rows1B[NUMROWS][NUMROWPIXEL] = { 0 };
+
+static unsigned int rows2R[NUMROWS][NUMROWPIXEL] = { 0 };
+static unsigned int rows2G[NUMROWS][NUMROWPIXEL] = { 0 };
+static unsigned int rows2B[NUMROWS][NUMROWPIXEL] = { 0 };
 
 //memset(row1, 0, sizeof(row1));
 //memset(row2, 0, sizeof(row2));
@@ -49,7 +56,18 @@ void lmg_show_char(uint8_t position, int rows, int character, int color[])
 
             if(rows == ROWS2)
             {
-                memcpy(&rows2[i][j+1+(position*5)], &Malphabet[i][j+(character*5)], sizeof(unsigned int));
+                if(color[0])
+                {
+                    memcpy(&rows2R[i][j+1+(position*5)], &Malphabet[i][j+(character*5)], sizeof(unsigned int));
+                }
+                if(color[1])
+                {
+                    memcpy(&rows2G[i][j+1+(position*5)], &Malphabet[i][j+(character*5)], sizeof(unsigned int));
+                }
+                if(color[2])
+                {
+                    memcpy(&rows2B[i][j+1+(position*5)], &Malphabet[i][j+(character*5)], sizeof(unsigned int));
+                }
             }
         }
     }
@@ -81,17 +99,17 @@ void lmg_loadMatrixData(uint8_t addr)
     int j;
 
     //lmd_demo_alphabeth();
-    int color[] = {1,1,0};
+    //int color[] = {1,1,1};
 
-     lmg_show_text("aloho  mora",color);
-   // lmd_show_text_scroll("lol_____", ROWS1, color);
-   // lmd_sho_text_scroll("Nazdar zmrdi tak co jak to jde", ROWS2);
+     //lmg_show_text("aloho  mora",color);
+    //lmg_show_text_scroll("lol_____", ROWS1, color);
+//    lmg_show_text_scroll("AHOJ", ROWS1, color);
 
     for(j = 0; j < NUMROWPIXEL; j++)
     {
         //setup for writing color to displey
         lmg_write_pixel(R1Matrix, rows1R[addr][j]);
-        lmg_write_pixel(R2Matrix, rows1G[addr][j]);
+        lmg_write_pixel(R2Matrix, rows2G[addr][j]);
         //lmd_write_pixel(B1Matrix, rows1B[addr][j]);
 
         //lmd_write_pixel(R2Matrix, rows2[addr][j]);
@@ -161,6 +179,27 @@ void lmg_demo_alphabeth_list(int list)
     }
 }
 
+void lmg_demo_co2(int co2, int color[])
+{
+    const char text[] = "CO2";
+    int maxText = strlen(text);
+    int i;
+    char co2Text[5];
+
+    sprintf(co2Text, "%d", co2);
+    int maxInt = strlen(co2Text);
+
+    for (i = 0; i < maxText; ++i)
+    {
+        lmg_find_char(text[i], ROWS1, i, color);
+    }
+    for (i = 0; i < maxInt; ++i)
+    {
+        lmg_find_char(co2Text[i], ROWS2, i, color);
+    }
+
+}
+
 void lmg_show_text(char text[], int color[])
 {
     // this is part where I want to parse text to character
@@ -191,7 +230,7 @@ void lmg_show_text(char text[], int color[])
     }
 }
 
-void lmg_show_text_scroll(char text[], int rows, int color[])
+void lmg_show_text_scroll_row1(char text[], int color[])
 {
 
     int max = strlen(text);
@@ -201,27 +240,65 @@ void lmg_show_text_scroll(char text[], int rows, int color[])
     static int positions = ENDROWS;
 
     //positions = positions + max;
-    if(counter==150)
+    if(counter==15000)
     {
         positions = positions - 1;
         counter = 0;
+
+        for(i = 0; i < max; i++)
+        {
+           if((positions+i)<6 && (positions+i)>=0)
+           {
+               lmg_find_char(text[i], ROWS1, positions+i, color);
+               if((positions+max) < 6)
+               {
+                   lmg_show_char(positions+i+1, ROWS1, NULLCHAR, color);
+               }
+           }
+        }
     }
 
     if(positions+max <= BEGINROWS)
     {
-        lmg_null_rows(rows, color);
-        positions = ENDROWS;
+        lmg_null_rows(ROWS1, color);
+        positions = ENDROWS+1;
     }
 
-    //lmd_show_char(position + 1, rows, NULLCHAR);
+    counter++;
+}
 
-    for(i = 0; i < max; i++)
+void lmg_show_text_scroll_row2(char text[], int color[])
+{
+
+    int max = strlen(text);
+    int i;
+    static int counter = 0;
+
+    static int positions = ENDROWS;
+
+    //positions = positions + max;
+    if(counter==15000)
     {
-        if((positions+i)<6 && (positions+i)>=0)
+        positions = positions - 1;
+        counter = 0;
+
+        for(i = 0; i < max; i++)
         {
-            lmg_find_char(text[i], rows, positions+i, color);
-            //lmd_show_char(positions+i+1, rows, NULLCHAR);
+           if((positions+i)<6 && (positions+i)>=0)
+           {
+               lmg_find_char(text[i], ROWS2, positions+i, color);
+               if((positions+max) < 6)
+               {
+                   lmg_show_char(positions+i+1, ROWS2, NULLCHAR, color);
+               }
+           }
         }
+    }
+
+    if(positions+max <= BEGINROWS)
+    {
+        lmg_null_rows(ROWS2, color);
+        positions = ENDROWS+1;
     }
 
     counter++;
