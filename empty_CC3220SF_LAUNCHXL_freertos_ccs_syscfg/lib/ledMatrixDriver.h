@@ -11,13 +11,25 @@
 
 #include <stdint.h>
 
-#define ONLED  GPIO_CFG_OUT_HIGH
-#define OFFLED GPIO_CFG_OUT_LOW
-#define tick   OFFLED
-#define toc    ONLED
+#define ONLED           GPIO_CFG_OUT_HIGH
+#define OFFLED          GPIO_CFG_OUT_LOW
+#define tick            OFFLED
+#define toc             ONLED
 
-#define ROWS1  0
-#define ROWS2  1
+#define ROWS1           0
+#define ROWS2           1
+
+#define NULLCHAR        36
+#define NUMBEROFFSET    22
+#define CHAROFFSET      65
+
+#define BEGINROWS       0
+#define ENDROWS         5
+#define MAXDISPCHAR     12
+
+#define NUMROWPIXEL     32
+#define NUMROWS         8
+
 
 // A for testing
 static unsigned int Malphabet[8][185]=
@@ -32,7 +44,7 @@ static unsigned int Malphabet[8][185]=
     {0,1,0,0,1,0,1,1,1,0,0,0,1,1,0,0,1,1,1,0,0,1,1,1,1,0,1,0,0,0,0,0,1,1,0,0,1,0,0,1,0,1,1,1,0,0,0,1,1,0,0,1,0,0,1,0,1,1,1,1,0,1,0,0,1,0,1,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,1,1,1,0,1,0,0,1,0,0,1,1,0,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,0,1,0,1,0,0,1,0,1,0,0,0,1,0,0,0,1,1,1,1,0,0,1,1,0,0,0,0,1,0,0,1,1,1,1,0,0,1,1,0,0,0,0,0,1,0,0,1,1,0,0,0,1,1,0,0,0,1,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0}
 };
 
-void lmd_show_char(uint8_t position, int rows, int character);
+void lmd_show_char(uint8_t position, int rows, int character, int color[]);
 
 void lmd_show_char_a(uint8_t position, int rows);
 
@@ -44,8 +56,12 @@ void lmd_demo_alphabeth(void);
 
 void lmd_demo_alphabeth_list(int list);
 
-void lmd_show_text(char text[]);
+void lmd_show_text(char text[], int color[]);
 
-void lmd_find_char(char character, int rows, int position);
+void lmd_show_text_scroll(char text[], int rows, int color[]);
+
+void lmd_find_char(char character, int rows, int position, int color[]);
+
+void lmd_null_rows(int rows, int color[]);
 
 #endif /* LIB_LEDMATRIXDRIVER_H_ */

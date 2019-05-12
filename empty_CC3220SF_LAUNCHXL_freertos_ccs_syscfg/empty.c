@@ -89,7 +89,7 @@ void *mainThread(void *arg0)
      * function every ONLED,000,000 microseconds, or ONLED second.
      */
     Timer_Params_init(&params);
-    params.period = 100;
+    params.period = 2500;
     params.periodUnits = Timer_PERIOD_US;
     params.timerMode = Timer_CONTINUOUS_CALLBACK;
     params.timerCallback = timerCallback;
